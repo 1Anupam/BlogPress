@@ -4,7 +4,7 @@
   "description": "CMS in Node.js",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js"
   },
   "author": "CH Barbosa",
   "license": "ISC",
