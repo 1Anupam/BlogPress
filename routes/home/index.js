@@ -8,6 +8,13 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 router.all('/*',(req,res,next)=>{
+    if (!req.user || !req.isAuthenticated()) {
+        if (req.path === '/login' || req.path === '/register') {
+            return next(); // Allow access to login and register pages
+        } else {
+            return res.redirect('/login'); // Redirect to login for other pages
+        }
+    }
     req.app.locals.layout = 'home';
     next();
 });
@@ -71,7 +78,7 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, async (email, passwor
       
       const matched = await bcrypt.compare(password, user.password);
       if (matched) {
-        console.log(user);
+        
         return done(null, user);
       } else {
         return done(null, false, { message: 'password is incorrect' });

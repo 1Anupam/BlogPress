@@ -2,7 +2,7 @@ module.exports = {
 
     userAuthenticated: function(req, res, next){
 
-        if (req.isAuthenticated()) {
+        if (req.user && req.isAuthenticated()) {
             return next();
         }
 
