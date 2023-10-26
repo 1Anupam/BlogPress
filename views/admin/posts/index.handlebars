@@ -25,13 +25,13 @@
             <td>{{allowComments}}</td>
             <td><a href="/post/{{slug}}">view</a></td>
             <td>{{formatDate date 'MMMM Do YYYY'}}</td>
-            <td><a href="/admin/posts/edit/{{id}}" class="btn btn-info" >Edit</a></td>
+            {{!-- <td><a href="/admin/posts/edit/{{id}}" class="btn btn-info" >Edit</a></td>
             <td>
                 <form action="/admin/posts/{{id}}?_method=DELETE" method="POST">
                     <button type="submit" 
                     class="btn btn-danger" title="Click here to remove this post">DELETE</button>
                 </form>
-            </td>
+            </td> --}}
         </tr>
         {{/each}}
     </tbody>
