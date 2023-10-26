@@ -18,7 +18,7 @@ const {mongoDbUrl} = require('./config/database');
 
 mongoose.set("strictQuery", false);
 
-mongoose.connect(mongoDbUrl);
+mongoose.connect(mongoDbUrl, { useNewUrlParser: true });
 const database = mongoose.connection;
 
 database.on("error", (error) => {
