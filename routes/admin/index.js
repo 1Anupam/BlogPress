@@ -7,16 +7,22 @@ const Comment = require('../../models/Comment');
 const {userAuthenticated} = require('../../helpers/authentication');
 
 router.all('/*',(req,res,next)=>{
+    if (!req.user || !req.isAuthenticated()) {
+        return res.redirect('/login'); // Redirect to login for other pages
+    }
     req.app.locals.layout = 'admin';
     next();
 });
 
 router.get('/', (req, res)=>{
+    // Assuming req.user contains the authenticated user's data
+
     const promises = [
         Post.count().exec(),
         Category.count().exec(),
         Comment.count().exec()
     ];
+    
     Promise.all(promises).then(([postCount, categoryCount, commentCount])=>{
         res.render('admin/index',{
             postCount: postCount,

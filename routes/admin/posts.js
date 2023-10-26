@@ -12,7 +12,8 @@ router.all('/*', (req,res,next)=>{
 });
 
 router.get('/', (req, res)=>{
-    Post.find({})
+    
+    Post.find()
         .populate('category')
         .then(posts=>{
         res.render('admin/posts', {posts: posts});
@@ -20,7 +21,7 @@ router.get('/', (req, res)=>{
 });
 
 router.get('/my-posts', (req, res)=>{
-    console.log(req.user, req.isAuthenticated())
+    
     Post.find({user: req.user.id})
         .populate('category')
         .then(posts=>{

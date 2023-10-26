@@ -8,13 +8,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 router.all('/*',(req,res,next)=>{
-    if (!req.user || !req.isAuthenticated()) {
-        if (req.path === '/login' || req.path === '/register') {
-            return next(); // Allow access to login and register pages
-        } else {
-            return res.redirect('/login'); // Redirect to login for other pages
-        }
-    }
+    
     req.app.locals.layout = 'home';
     next();
 });
@@ -22,13 +16,15 @@ router.all('/*',(req,res,next)=>{
 router.get('/', (req, res)=>{
     const perPage = 10;
     const page = req.query.page || 1;
+   
 
-    Post.find({})
+    Post.find()
         .skip((perPage*page)-perPage)
         .limit(perPage)
         .then(posts => {
             Post.count().then(postCount=>{
                 Category.find({}).then(categories => {
+                  
                     res.render('home/index', {
                         posts: posts,
                         categories: categories,
@@ -201,7 +197,7 @@ router.post('/register', (req, res)=>{
 
 });
 router.get('/post/:slug', (req, res)=>{
-
+    
     Post.findOne({slug: req.params.slug})
     .populate({path: 'comments', match: {approveComment: true}, populate: {path: 'user', models: 'users'}})
     .populate('user')
@@ -211,7 +207,7 @@ router.get('/post/:slug', (req, res)=>{
             res.render('home/post', {post: post, categories: categories});
         });
     });
-
+    console.log('no way home')
 });
 
 module.exports = router;
