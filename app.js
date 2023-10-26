@@ -11,6 +11,7 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const {mongoDbUrl} = require('./config/database');
 
+
 // mongoose.connect(mongoDbUrl)
 //     .then(db=>console.log('DB connected'))
 //     .catch(err=>console.log(err));
@@ -18,7 +19,7 @@ const {mongoDbUrl} = require('./config/database');
 
 mongoose.set("strictQuery", false);
 
-mongoose.connect(mongoDbUrl, { useNewUrlParser: true });
+mongoose.connect(mongoDbUrl);
 const database = mongoose.connection;
 
 database.on("error", (error) => {
@@ -52,7 +53,7 @@ app.use(methodOverride('_method'));
 app.use(session({
     secret: 'chbarbosa2018',
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
 }));
 
 app.use(flash());
