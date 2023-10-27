@@ -2,9 +2,12 @@
   "name": "cms",
   "version": "1.0.0",
   "description": "CMS in Node.js",
-  "main": "app.js",
+  "main": "index.js",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
-    "start": "node app.js"
+    "start": "node index.js"
   },
   "author": "CH Barbosa",
   "license": "ISC",
