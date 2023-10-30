@@ -21,6 +21,9 @@ router.get('/', (req, res)=>{
 });
 
 router.get('/my-posts', (req, res)=>{
+    if (!req.user || !req.isAuthenticated()) {
+        return res.redirect('/login'); // Redirect to login for other pages
+    }
     
     Post.find({user: req.user.id})
         .populate('category')
@@ -30,6 +33,9 @@ router.get('/my-posts', (req, res)=>{
 });
 
 router.get('/create', (req, res)=>{
+    if (!req.user || !req.isAuthenticated()) {
+        return res.redirect('/login'); // Redirect to login for other pages
+    }
     Category.find({}).then(categories => {
         res.render('admin/posts/create', {categories: categories});
     });

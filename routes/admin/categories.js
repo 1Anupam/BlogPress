@@ -10,6 +10,9 @@ router.all('/*',(req,res,next)=>{
 });
 
 router.get('/', (req, res)=>{
+    if (!req.user || !req.isAuthenticated()) {
+        return res.redirect('/login'); // Redirect to login for other pages
+    }
     Category.find({}).then(categories=>{
         res.render('admin/categories/index', {categories: categories});
     });

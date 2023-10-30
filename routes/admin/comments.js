@@ -9,6 +9,9 @@ router.all('/*',(req,res,next)=>{
 });
 
 router.get('/', (req, res)=>{
+    if (!req.user || !req.isAuthenticated()) {
+        return res.redirect('/login'); // Redirect to login for other pages
+    }
     Comment.find({user: req.user.id}).populate('user').then(comments=>{
         res.render('admin/comments', {comments: comments});
     });

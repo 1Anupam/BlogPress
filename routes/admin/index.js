@@ -7,9 +7,6 @@ const Comment = require('../../models/Comment');
 const {userAuthenticated} = require('../../helpers/authentication');
 
 router.all('/*',(req,res,next)=>{
-    if (!req.user || !req.isAuthenticated()) {
-        return res.redirect('/login'); // Redirect to login for other pages
-    }
     req.app.locals.layout = 'admin';
     next();
 });
@@ -37,6 +34,9 @@ router.get('/', (req, res)=>{
 });
 
 router.post('/generate-fake-posts', (req, res)=>{
+    if (!req.user || !req.isAuthenticated()) {
+        return res.redirect('/login'); // Redirect to login for other pages
+    }
 
     for (let index = 0; index < req.body.amount; index++) {
         let post = new Post();
